@@ -6,7 +6,7 @@
 /*   By: cpapot <cpapot@student.42lyon.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 12:58:26 by cpapot            #+#    #+#             */
-/*   Updated: 2022/11/30 12:21:36 by cpapot           ###   ########.fr       */
+/*   Updated: 2022/11/30 23:26:55 by cpapot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	while (i != (int)n)
 	{
 		if (((unsigned char *)s)[i] == (unsigned char)c)
-			return ((unsigned char *)&s[i]);
+			return ((unsigned char *)s + i);
 		i++;
 	}
 	return (0);
