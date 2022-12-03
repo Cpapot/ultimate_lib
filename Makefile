@@ -54,10 +54,6 @@ LSTDIR		=	lst/
 
 PRINTFDIR	=	ft_printf/
 
-OBJSDIR		=	srcs/.objs/
-
-DIR			=	$(addprefix $(OBJSDIR), $(CHARDIR) $(STRINGDIR) $(MEMDIR) $(WRITEDIR) $(LSTDIR))
-
 #					Full Path
 
 SRCS		=	$(addprefix $(SRCSDIR)$(CHARDIR),$(CHARSRC)) \
@@ -68,9 +64,9 @@ SRCS		=	$(addprefix $(SRCSDIR)$(CHARDIR),$(CHARSRC)) \
 
 PRINTF		=	$(addprefix $(SRCSDIR),$(PRINTFDIR))
 
-INCLUDES	=	$(addprefix $(HEADERSDIR),$(HEADERS))
+HEADER	=	$(addprefix $(HEADERSDIR),$(HEADERS))
 
-OBJS		=	$(subst $(SRCSDIR),$(OBJSDIR),$(SRCS:.c=.o)) \
+OBJS		=	$(SRCS:.c=.o)
 
 #		 __      __        _       _     _
 #		 \ \    / /       (_)     | |   | |
@@ -98,16 +94,13 @@ MKDIR		=	mkdir -p
 #				 | | \ \ |_| | |  __/\__ \.
 #				 |_|  \_\__,_|_|\___||___/
 
-all : ${NAME}
-
-${NAME}:	${OBJS} ${INCLUDES} printf
-	${AR} ${NAME} ${OBJS}
-
-${OBJSDIR}%.o: ${SRCSDIR}%.c ${INCLUDES} ${DIR}
+%.o: %.c ${HEADER} Makefile
 	$(CC) -I ${CFLAGS} -c $< -o $@
 
-${DIR}:
-	${MKDIR} ${DIR}	\
+all : ${NAME} printf
+
+${NAME}:	${OBJS}
+	${AR} ${NAME} $<
 
 clean:
 	${MAKE} clean -C ${PRINTF}
@@ -122,7 +115,7 @@ re:
 	${MAKE} fclean
 	${MAKE} all
 
-printf:
+printf: ${PRINTF}
 	${MAKE} -C ${PRINTF}
 
 .PHONY : re all clean fclean printf
