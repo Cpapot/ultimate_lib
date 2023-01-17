@@ -36,6 +36,12 @@ LSTSRC		=	ft_lstnew.c ft_lstadd_front.c \
 				ft_lstiter.c ft_lstclear.c \
 				ft_lstmap.c
 
+INTLSTSRC	=	ft_lstintnew.c ft_lstintadd_front.c \
+				ft_lstintadd_back.c ft_lstintsize.c \
+				ft_lstintlast.c ft_lstintdelone.c \
+				ft_lstintiter.c ft_lstintclear.c \
+				ft_lstintmap.c
+
 #					Directories
 
 HEADERSDIR	=	includes/
@@ -52,6 +58,8 @@ WRITEDIR	=	write/
 
 LSTDIR		=	lst/
 
+LSTINTDIR	=	lst_int/
+
 PRINTFDIR	=	ft_printf/
 
 #					Full Path
@@ -60,7 +68,8 @@ SRCS		=	$(addprefix $(SRCSDIR)$(CHARDIR),$(CHARSRC)) \
 				$(addprefix $(SRCSDIR)$(STRINGDIR),$(STRINGSRC)) \
 				$(addprefix $(SRCSDIR)$(MEMDIR),$(MEMSRC)) \
 				$(addprefix $(SRCSDIR)$(WRITEDIR),$(WRITESRC)) \
-				$(addprefix $(SRCSDIR)$(LSTDIR),$(LSTSRC))
+				$(addprefix $(SRCSDIR)$(LSTDIR),$(LSTSRC)) \
+				$(addprefix $(SRCSDIR)$(LSTINTDIR),$(INTLSTSRC)) \
 
 PRINTF		=	$(addprefix $(SRCSDIR),$(PRINTFDIR))
 
@@ -75,11 +84,13 @@ OBJS		=	$(SRCS:.c=.o)
 #		    \  / (_| | |  | | (_| | |_) | |  __/\__ \.
 #		     \/ \__,_|_|  |_|\__,_|_.__/|_|\___||___/
 
-AR			=	ar rc
+PRINT_COMPILE = @echo "\033[1;32m⏳ compiling libft\033[1;0m"
+
+AR			=	ar rcs
 
 NAME		=	libft.a
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g3
 
 CC			=	gcc
 
@@ -94,28 +105,33 @@ MKDIR		=	mkdir -p
 #				 | | \ \ |_| | |  __/\__ \.
 #				 |_|  \_\__,_|_|\___||___/
 
-%.o: %.c ${HEADER} Makefile
-	$(CC) -I ${CFLAGS} -c $< -o $@
+%.o: %.c ${HEADER}
+	$(PRINT_COMPILE)
+	@$(CC) -I ${CFLAGS} -c $< -o $@
+	@$(eval PRINT_COMPILE = @:)
 
 all : ${NAME} printf
 
-${NAME}:	${OBJS}
-	${AR} ${NAME} $<
+${NAME}: ${OBJS}
+	@${AR} ${NAME} ${OBJS}
+	@echo "\033[1;32m✅ libft OK\033[1;0m"
 
 clean:
-	${MAKE} clean -C ${PRINTF}
-	${RM} ${OBJS}
+	@${MAKE} clean -C ${PRINTF}
+	@${RM} ${OBJS}
+	@echo "\033[1;31m🗑  libft cleaned\033[1;0m"
 
 fclean:
-	${MAKE} clean
-	${RM} ${NAME}
-	${MAKE} fclean -C ${PRINTF}
+	@${MAKE} --no-print-directory clean
+	@${RM} ${NAME}
+	@${MAKE} --no-print-directory fclean -C ${PRINTF}
+	@echo "\033[1;31m🗑  printf cleaned\033[1;0m"
 
 re:
-	${MAKE} fclean
-	${MAKE} all
+	@${MAKE} --no-print-directory fclean
+	@${MAKE} --no-print-directory all
 
 printf: ${PRINTF}
-	${MAKE} -C ${PRINTF}
+	@${MAKE} -s -C ${PRINTF}
 
 .PHONY : re all clean fclean printf

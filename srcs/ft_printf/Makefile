@@ -6,7 +6,7 @@
 #    By: cpapot <cpapot@student.42lyon.fr >         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 14:44:54 by cpapot            #+#    #+#              #
-#    Updated: 2022/11/30 14:25:37 by cpapot           ###   ########.fr        #
+#    Updated: 2023/01/17 16:48:50 by cpapot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,19 +31,24 @@ CFLAGS = -Wall -Wextra -Werror
 
 OBJS	= $(SRC_ROOT:.c=.o) ${SRC_DIR:.c=.o} ${LIBFT_DIR:.c=.o}
 
+PRINT_COMPILE = @echo "\033[1;32m⏳ compiling printf\033[1;0m"
+
 %.o:	%.c ${HEADERS} Makefile
-	$(CC) -I ${CFLAGS} -c $< -o $@
+	$(PRINT_COMPILE)
+	@$(CC) -I ${CFLAGS} -c $< -o $@
+	@$(eval PRINT_COMPILE = @:)
 
 ${NAME}:	${OBJS}
-	ar rcs ${NAME} ${OBJS}
+	@ar rcs ${NAME} ${OBJS}
+	@echo "\033[1;32m✅ printf OK\033[1;0m"
 
 all: ${NAME}
 
 clean:
-	${RM} ${OBJS}
+	@${RM} ${OBJS}
 
 fclean:		clean
-	${RM} ${NAME}
+	@${RM} ${NAME}
 
 re:	fclean all
 
