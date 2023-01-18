@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpapot <cpapot@student.42lyon.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 10:48:33 by cpapot            #+#    #+#             */
-/*   Updated: 2023/01/18 19:55:58 by cpapot           ###   ########.fr       */
+/*   Created: 2022/11/08 14:10:24 by cpapot            #+#    #+#             */
+/*   Updated: 2023/01/18 20:09:26 by cpapot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf_fd.h"
 
-int	ft_printf(const char *format, ...)
+size_t	ft_strlen(const char *str)
 {
-	ssize_t	len;
-	va_list	variadic;
+	size_t	i;
 
-	va_start(variadic, format);
-	len = ft_callformat(format, variadic);
-	va_end(variadic);
-	return ((int)len);
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
 }

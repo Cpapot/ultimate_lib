@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpapot <cpapot@student.42lyon.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 10:48:33 by cpapot            #+#    #+#             */
-/*   Updated: 2023/01/18 19:55:58 by cpapot           ###   ########.fr       */
+/*   Created: 2022/11/10 11:02:43 by cpapot            #+#    #+#             */
+/*   Updated: 2023/01/18 20:09:18 by cpapot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf_fd.h"
 
-int	ft_printf(const char *format, ...)
+void	ft_bzero(void *s, size_t n)
 {
-	ssize_t	len;
-	va_list	variadic;
+	int	i;
 
-	va_start(variadic, format);
-	len = ft_callformat(format, variadic);
-	va_end(variadic);
-	return ((int)len);
+	i = 0;
+	while (i != (int)n)
+	{
+		((unsigned char *)s)[i] = 0;
+		i++;
+	}
 }

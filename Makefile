@@ -20,7 +20,7 @@ STRINGSRC	=	ft_strmapi.c ft_striteri.c \
 				ft_atoi.c ft_strncmp.c \
 				ft_strdup.c ft_strtrim.c \
 				ft_split.c ft_itoa.c \
-				ft_strjoin.c
+				ft_strjoin.c ft_atoll.c
 
 MEMSRC		=	ft_memset.c ft_bzero.c \
 				ft_memcpy.c ft_memmove.c \
@@ -60,6 +60,8 @@ LSTDIR		=	lst/
 
 LSTINTDIR	=	lst_int/
 
+PRINTFFDDIR	=	ft_printf_fd/
+
 PRINTFDIR	=	ft_printf/
 
 #					Full Path
@@ -72,6 +74,8 @@ SRCS		=	$(addprefix $(SRCSDIR)$(CHARDIR),$(CHARSRC)) \
 				$(addprefix $(SRCSDIR)$(LSTINTDIR),$(INTLSTSRC)) \
 
 PRINTF		=	$(addprefix $(SRCSDIR),$(PRINTFDIR))
+
+PRINTFFD	=	$(addprefix $(SRCSDIR),$(PRINTFFDDIR))
 
 HEADER	=	$(addprefix $(HEADERSDIR),$(HEADERS))
 
@@ -110,14 +114,15 @@ MKDIR		=	mkdir -p
 	@$(CC) -I ${CFLAGS} -c $< -o $@
 	@$(eval PRINT_COMPILE = @:)
 
-all : ${NAME} printf
+all : ${NAME} printf printffd
 
 ${NAME}: ${OBJS}
 	@${AR} ${NAME} ${OBJS}
 	@echo "\033[1;32m✅ libft OK\033[1;0m"
 
 clean:
-	@${MAKE} clean -C ${PRINTF}
+	@${MAKE} --no-print-directory clean -C ${PRINTF}
+	@${MAKE} --no-print-directory clean -C ${PRINTFFD}
 	@${RM} ${OBJS}
 	@echo "\033[1;31m🗑  libft cleaned\033[1;0m"
 
@@ -125,7 +130,9 @@ fclean:
 	@${MAKE} --no-print-directory clean
 	@${RM} ${NAME}
 	@${MAKE} --no-print-directory fclean -C ${PRINTF}
-	@echo "\033[1;31m🗑  printf cleaned\033[1;0m"
+	@${MAKE} --no-print-directory fclean -C ${PRINTFFD}
+	@echo "\033[1;31m🗑  ft_printf cleaned\033[1;0m"
+	@echo "\033[1;31m🗑  ft_printf_fd cleaned\033[1;0m"
 
 re:
 	@${MAKE} --no-print-directory fclean
@@ -134,4 +141,7 @@ re:
 printf: ${PRINTF}
 	@${MAKE} -s -C ${PRINTF}
 
-.PHONY : re all clean fclean printf
+printffd: ${PRINTFFD}
+	@${MAKE} -s -C ${PRINTFFD}
+
+.PHONY : re all clean fclean printf printffd

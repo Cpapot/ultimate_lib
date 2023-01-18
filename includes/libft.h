@@ -6,7 +6,7 @@
 /*   By: cpapot <cpapot@student.42lyon.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:20:49 by cpapot            #+#    #+#             */
-/*   Updated: 2023/01/17 16:54:38 by cpapot           ###   ########.fr       */
+/*   Updated: 2023/01/18 20:27:43 by cpapot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 # define LIBFT_H
 # include "../srcs/ft_printf/ft_printf.h"
+# include "../srcs/ft_printf_fd/ft_printf_fd.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdint.h>
+
+# define INT_MAX	2147483647
+# define INT_MIN	-2147483647
+# define LLONG_MAX	9223372036854775807
+# define LLONG_MIN	-9223372036854775807
+
 
 #define RESET              "\x1b[0m"
 #define BLACK              "\x1b[30m"

@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_putint_len.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpapot <cpapot@student.42lyon.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 10:48:33 by cpapot            #+#    #+#             */
-/*   Updated: 2023/01/18 19:55:58 by cpapot           ###   ########.fr       */
+/*   Created: 2022/11/22 13:39:34 by cpapot            #+#    #+#             */
+/*   Updated: 2023/01/18 20:04:51 by cpapot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf_fd.h"
 
-int	ft_printf(const char *format, ...)
+ssize_t	ft_putint_len(int fd, int nbr)
 {
 	ssize_t	len;
-	va_list	variadic;
+	char	*nbr_str;
 
-	va_start(variadic, format);
-	len = ft_callformat(format, variadic);
-	va_end(variadic);
-	return ((int)len);
+	nbr_str = ft_itoa(nbr);
+	len = write(fd, nbr_str, ft_strlen(nbr_str));
+	free(nbr_str);
+	return (len);
 }
