@@ -6,7 +6,7 @@
 /*   By: cpapot <cpapot@student.42lyon.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:20:49 by cpapot            #+#    #+#             */
-/*   Updated: 2023/01/18 20:27:43 by cpapot           ###   ########.fr       */
+/*   Updated: 2023/02/12 19:40:54 by cpapot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,21 @@
 # define LLONG_MIN	-9223372036854775807
 
 
-#define RESET              "\x1b[0m"
-#define BLACK              "\x1b[30m"
-#define RED                "\x1b[31m"
-#define GREEN              "\x1b[32m"
-#define YELLOW             "\x1b[33m"
-#define BLUE               "\x1b[34m"
-#define MAGENTA            "\x1b[35m"
-#define CYAN               "\x1b[36m"
-#define WHITE              "\x1b[37m"
+# define RESET              "\x1b[0m"
+# define BLACK              "\x1b[30m"
+# define RED                "\x1b[31m"
+# define GREEN              "\x1b[32m"
+# define YELLOW             "\x1b[33m"
+# define BLUE               "\x1b[34m"
+# define MAGENTA            "\x1b[35m"
+# define CYAN               "\x1b[36m"
+# define WHITE              "\x1b[37m"
+
+typedef struct s_memstock
+{
+	void				*content;
+	struct s_memstock	*next;
+}						t_memlist;
 
 typedef struct s_intlist
 {
@@ -73,6 +79,8 @@ void		*ft_memset(void *b, int c, size_t len);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 void		*ft_memmove(void *dst, const void *src, size_t len);
 void		*ft_memchr(const void *s, int c, size_t n);
+void		stock_free(t_memlist **stock);
+void		*stock_malloc(size_t size, t_memlist **stock);
 int			ft_lstsize(t_list *lst);
 int			ft_toupper(int c);
 int			ft_tolower(int c);
