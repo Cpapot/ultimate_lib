@@ -6,7 +6,7 @@
 /*   By: cpapot <cpapot@student.42lyon.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:09:49 by cpapot            #+#    #+#             */
-/*   Updated: 2022/11/30 12:05:06 by cpapot           ###   ########.fr       */
+/*   Updated: 2023/02/17 18:12:40 by cpapot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	intlen(int n)
 	return (result);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa_mem(int n, t_memlist **stock)
 {
 	int		i;
 	char	*result;
@@ -42,7 +42,7 @@ char	*ft_itoa(int n)
 	nbr = n;
 	i = intlen(n) - 1;
 	u = -1;
-	result = malloc(sizeof(char) * (intlen(n) + 1));
+	result = stock_malloc(sizeof(char) * (intlen(n) + 1), stock);
 	if (result == 0)
 		return (0);
 	if (nbr < 0)

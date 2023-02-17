@@ -6,13 +6,13 @@
 /*   By: cpapot <cpapot@student.42lyon.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:02:18 by cpapot            #+#    #+#             */
-/*   Updated: 2022/11/30 12:05:18 by cpapot           ###   ########.fr       */
+/*   Updated: 2023/02/17 18:05:52 by cpapot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2, t_memlist **stock)
 {
 	char	*strs;
 	int		i;
@@ -22,7 +22,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	u = 0;
 	if (!s1 || !s2)
 		return (NULL);
-	strs = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	strs = stock_malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1),
+			stock);
 	if (strs == NULL)
 		return (NULL);
 	while (s1[i] != '\0')

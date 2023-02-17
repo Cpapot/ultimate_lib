@@ -6,7 +6,7 @@
 /*   By: cpapot <cpapot@student.42lyon.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:20:49 by cpapot            #+#    #+#             */
-/*   Updated: 2023/02/12 19:40:54 by cpapot           ###   ########.fr       */
+/*   Updated: 2023/02/17 18:13:33 by cpapot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # define INT_MIN	-2147483647
 # define LLONG_MAX	9223372036854775807
 # define LLONG_MIN	-9223372036854775807
-
 
 # define RESET              "\x1b[0m"
 # define BLACK              "\x1b[30m"
@@ -74,7 +73,7 @@ t_int_list	*ft_lstintmap(t_int_list *lst, int (*f)(int));
 t_int_list	*ft_lstintnew(int cont);
 int			ft_lstintsize(t_int_list *lst);
 void		ft_lstclear(t_list **lst, void (*del)(void *));
-void		*ft_calloc(size_t count, size_t size);
+void		*ft_calloc(size_t count, size_t size, t_memlist **stock);
 void		*ft_memset(void *b, int c, size_t len);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 void		*ft_memmove(void *dst, const void *src, size_t len);
@@ -92,16 +91,16 @@ int			ft_isalnum(int c);
 int			ft_atoi(const char *str);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
-char		*ft_itoa(int n);
-char		*ft_strtrim(char const *s1, char const *set);
-char		*ft_strjoin(char const *s1, char const *s2);
-char		*ft_strdup(const char *s1);
+char		*ft_itoa_mem(int n, t_memlist **stock);
+char		*ft_strtrim(char const *s1, char const *set, t_memlist **stock);
+char		*ft_strjoin(char const *s1, char const *s2, t_memlist **stock);
+char		*ft_strdup(const char *s1, t_memlist **stock);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strrchr(const char *s, int c);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
+char		*ft_substr_mem(char *s, int start, size_t len, t_memlist **stock);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-char		**ft_split(char const *str, char c);
+char		**ft_split(char const *str, char c, t_memlist **stock);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dest, const char *src, size_t dstsize);
 size_t		ft_strlen(const char *str);

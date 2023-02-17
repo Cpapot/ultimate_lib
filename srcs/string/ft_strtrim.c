@@ -6,7 +6,7 @@
 /*   By: cpapot <cpapot@student.42lyon.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:46:57 by cpapot            #+#    #+#             */
-/*   Updated: 2022/11/30 12:05:35 by cpapot           ###   ########.fr       */
+/*   Updated: 2023/02/17 18:07:33 by cpapot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	strlen_st(char const *s1, char const *set)
 	return (ft_strlen(s1) - i);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set, t_memlist **stock)
 {
 	char	*result;
 	int		i;
@@ -57,7 +57,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (!s1 || !set)
 		return (NULL);
 	y = ft_strlen(s1) - 1;
-	result = malloc(sizeof(char) *(strlen_st(s1, set) + 1));
+	result = stock_malloc(sizeof(char) *(strlen_st(s1, set) + 1), stock);
 	if (result == NULL)
 		return (NULL);
 	while (is_set(set, s1[i]))
